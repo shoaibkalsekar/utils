@@ -1,5 +1,5 @@
-node-modules/
-.grunt/*
+node_modules/**
+.grunt/**
 *.todo
 _SpecRunner.html
 npm-debug.log
