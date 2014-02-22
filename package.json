@@ -1,17 +1,31 @@
 {
-  "name": "bathtub",
-  "description": "All in the bathtub, all the time.",
+  "name": "Utils",
+
+  "description": "A tiny lib of helper functions in javascript",
+  
   "version": "0.0.1",
-  "author": "Jamison Dance <jergason@gmail.com> (http://jamisondance.com)",
-  "main": "./bathtub.js",
+  
+  "author": "Shoaib Kalsekar <shoaib@genii.com>",
+  
+  "main": "./utils.js",
+
   "keywords": [
-    "bathtub",
-    "awesome"
+    "functional programming",
+    "helpers",
+    "javascript"
   ],
+
+  "scripts": { "build": "grunt | node server.js" },
+
   "devDependencies": {
     "utils": "~0.1.4",
     "browserify": "~3.30.1",
     "grunt-browserify": "~1.3.1",
-    "grunt-contrib-watch": "~0.5.3"
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-jasmine-node": "*"
+  },
+
+  "dependencies" : {
+    "jasmine-node": "~1.3.1"
   }
 }

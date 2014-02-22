@@ -3,15 +3,13 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    // uglify: {
-    //   options: {
-    //     banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-    //   },
-    //   build: {
-    //     src: 'src/<%= pkg.name %>.js',
-    //     dest: 'build/<%= pkg.name %>.min.js'
-    //   }
-    // }
+    
+    uglify: {
+      build: {
+        src: 'utils.js',
+        dest: 'public/utils.js'
+      }
+    },
 
     browserify: {
       dist: {
@@ -20,12 +18,12 @@ module.exports = function(grunt) {
           'public/test/utils-spec.js': ['test/utils-spec.js']
         }
       }
-    },
+    },   
 
     watch: {
       scripts: {
         files: ['**/*'],
-        tasks: ['browserify'],
+        tasks: ['browserify', 'uglify', 'jasmine_node'],
         options: {
           spawn: false,
         },
@@ -40,6 +38,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ['browserify']);
+  grunt.registerTask('default', ['browserify', 'uglify', 'watch']);
 
 };

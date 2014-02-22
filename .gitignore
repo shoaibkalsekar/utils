@@ -1,2 +1,5 @@
-node-modules
+node-modules/
+.grunt/*
 *.todo
+_SpecRunner.html
+npm-debug.log
