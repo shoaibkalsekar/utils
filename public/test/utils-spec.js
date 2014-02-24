@@ -58,21 +58,22 @@ describe("Utils", function() {
   "use strict";
 
   var _utils = {},
-      _arr = [],
       _obj = {},
-      has = _obj.hasOwnProperty;
+      has = _obj.hasOwnProperty,
+      toString = ("").toString;
 
 
 // Internal recursive comparison function for `isEqual`.
   var eq = function(a, b, aStack, bStack) {
     // Identical objects are equal. `0 === -0`, but they aren't identical.
     // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
-    if (a === b) return a !== 0 || 1 / a == 1 / b;
+    if (a === b) {
+      return a !== 0 || 1 / a == 1 / b;
+    }
     // A strict comparison is necessary because `null == undefined`.
-    if (a == null || b == null) return a === b;
-    // Unwrap any wrapped objects.
-    // if (a instanceof _) a = a._wrapped;
-    // if (b instanceof _) b = b._wrapped;
+    if (a == null || b == null) {
+      return a === b;
+    }
     // Compare `[[Class]]` names.
     var className = toString.call(a);
     if (className != toString.call(b)) return false;
@@ -158,7 +159,7 @@ describe("Utils", function() {
   _utils.isObject = function(obj)
   {
     return Object.prototype.toString.call(obj) === "[object Object]";
-  }
+  };
 
   _utils.clone = function(obj)
   {
@@ -172,20 +173,24 @@ describe("Utils", function() {
     }
     else
       throw new TypeError('Arguments to clone function is invalid');
-  }
+  };
 
   _utils.isFunction = function(func)
   {
     return typeof func === 'function';
-  }
+  };
 
   _utils.isEqual = function(a, b)
   {
     return eq(a, b, [], []);
+  };
+
+  if(module) {
+    module.exports = _utils;
+  }
+  if(window) {
+    window.utilities = _utils;
   }
 
-  module.exports = _utils;
-  window.utilities = _utils;
-
-}())
+}());
 },{}]},{},[1])
