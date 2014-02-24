@@ -12,16 +12,16 @@ module.exports = function(grunt) {
         sourceMap: true
       },
       build: {
-        src: 'utils.js',
-        dest: 'public/utils.js'
+        src: 'dist/utils.js',
+        dest: 'dist/utils.min.js'
       }
     },
 
     browserify: {
       dist: {
         files: {
-          'public/utils.js': ['utils.js'],
-          'public/test/utils-spec.js': ['test/utils-spec.js']
+          'dist/utils.js': ['src/utils.js'],
+          'dist/test_spec/utils-spec.js': ['test_spec/utils-spec.js']
         }
       }
     },
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['**/*'],
-        tasks: ['browserify', 'uglify', 'jasmine_node'],
+        tasks: ['browserify', 'uglify'],
         options: {
           spawn: false,
         },
@@ -43,7 +43,9 @@ module.exports = function(grunt) {
       files: {
         src: ["utils.js"]
       }
-    }
+    },
+
+    clean: ["dist/utils*.js", "dist/test_spec/utils*.js", "dist/utils*.map"]
 
   });
 
@@ -52,6 +54,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   // Default task(s).
   grunt.registerTask('default', ['browserify', 'uglify', 'watch']);

@@ -1,66 +1,21 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var utils = require("../utils.js");
-
-console.log(utils);
-
-describe("Utils", function() {
-
-  describe('isObject', function(){
-
-    it("Should validate an object as object", function() {
-      expect(utils.isObject({})).toBe(true);
-    });
-
-    it("Should NOT validate an array as object", function() {
-      expect(utils.isObject([])).toBe(false);
-    });
-
-    it("Should NOT validate a string as object", function() {
-      expect(utils.isObject('hello')).toBe(false);
-    });
-
-    it("Should NOT validate a number as object", function() {
-      expect(utils.isObject(123)).toBe(false);
-    });
-
-  });
-
-  describe('Clone Object', function(){
-
-    var input = { a: 1, b: "hello" };
-        cloned = utils.clone(input),
-        changed_clone = cloned;
-
-
-    it("Should copy input object by value", function() {
-      expect(utils.isEqual(cloned,input)).toBe(true);
-    });
-
-    it("Can be changed, without affecting the original object", function() {
-      changed_clone.a = 2;
-      changed_clone.b = "hey";
-      expect(utils.isEqual(changed_clone,input)).toBe(false);
-    });
-
-    it("Should NOT copy if input is an Array", function() {
-      expect(function(){
-        utils.clone([])
-      }).toThrow(new TypeError('Arguments to clone function is invalid'));
-    });
-
-  });
-
-});
-},{"../utils.js":2}],2:[function(require,module,exports){
 
 (function(){
 
   "use strict";
 
-  var _utils = {},
+  var _utils = {
+        isEqual : isEqual,
+        isFunction : isFunction,
+        isObject : isObject,
+        clone : clone,
+        isArray : isArray,
+        isString : isString,
+        isEmpty : isEmpty
+      },
       _obj = {},
       has = _obj.hasOwnProperty,
-      toString = ("").toString;
+      toString = _obj.toString;
 
 
 // Internal recursive comparison function for `isEqual`.
@@ -156,12 +111,8 @@ describe("Utils", function() {
     return result;
   };
 
-  _utils.isObject = function(obj)
-  {
-    return Object.prototype.toString.call(obj) === "[object Object]";
-  };
 
-  _utils.clone = function(obj)
+  function clone(obj)
   {
     if(_utils.isObject(obj))
     {
@@ -172,17 +123,48 @@ describe("Utils", function() {
       return _t;
     }
     else
-      throw new TypeError('Arguments to clone function is invalid');
+      return obj;
   };
 
-  _utils.isFunction = function(func)
-  {
-    return typeof func === 'function';
-  };
 
-  _utils.isEqual = function(a, b)
+  function isEqual(a, b)
   {
     return eq(a, b, [], []);
+  };
+
+  function isEmpty(obj)
+  {
+    if(obj === null) {
+      return true;
+    }
+    if(isArray(obj)) {
+      return obj.length === 0;
+    }
+    for (var key in obj) {
+      if (has.call(obj, key)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function isObject(obj)
+  {
+    return Object.prototype.toString.call(obj) === "[object Object]";
+  };
+
+  function isArray(obj) {
+    return toString.call(obj) == '[object Array]';
+  };
+
+  function isString(obj) {
+    return toString.call(obj) == '[object String]';
+  };
+
+  function isFunction(func)
+  {
+    return typeof func === 'function';
   };
 
   if(module) {

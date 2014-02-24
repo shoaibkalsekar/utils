@@ -3,10 +3,18 @@
 
   "use strict";
 
-  var _utils = {},
+  var _utils = {
+        isEqual : isEqual,
+        isFunction : isFunction,
+        isObject : isObject,
+        clone : clone,
+        isArray : isArray,
+        isString : isString,
+        isEmpty : isEmpty
+      },
       _obj = {},
       has = _obj.hasOwnProperty,
-      toString = ("").toString;
+      toString = _obj.toString;
 
 
 // Internal recursive comparison function for `isEqual`.
@@ -102,12 +110,8 @@
     return result;
   };
 
-  _utils.isObject = function(obj)
-  {
-    return Object.prototype.toString.call(obj) === "[object Object]";
-  };
 
-  _utils.clone = function(obj)
+  function clone(obj)
   {
     if(_utils.isObject(obj))
     {
@@ -118,17 +122,48 @@
       return _t;
     }
     else
-      throw new TypeError('Arguments to clone function is invalid');
+      return obj;
   };
 
-  _utils.isFunction = function(func)
-  {
-    return typeof func === 'function';
-  };
 
-  _utils.isEqual = function(a, b)
+  function isEqual(a, b)
   {
     return eq(a, b, [], []);
+  };
+
+  function isEmpty(obj)
+  {
+    if(obj === null) {
+      return true;
+    }
+    if(isArray(obj)) {
+      return obj.length === 0;
+    }
+    for (var key in obj) {
+      if (has.call(obj, key)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function isObject(obj)
+  {
+    return Object.prototype.toString.call(obj) === "[object Object]";
+  };
+
+  function isArray(obj) {
+    return toString.call(obj) == '[object Array]';
+  };
+
+  function isString(obj) {
+    return toString.call(obj) == '[object String]';
+  };
+
+  function isFunction(func)
+  {
+    return typeof func === 'function';
   };
 
   if(module) {
