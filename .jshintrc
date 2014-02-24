@@ -1,0 +1,15 @@
+{
+  "forin"         : true,
+  "immed"         : true,
+  "latedef"       : true,
+  "newcap"        : true,
+  "noarg"         : true,
+  "noempty"       : true,
+  "undef"         : true,
+  "unused"        : true,
+  "strict"        : true,
+  "trailing"      : true,
+  "freeze"        : true,
+
+  "funcscope"     : false
+}

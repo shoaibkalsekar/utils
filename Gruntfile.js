@@ -34,16 +34,27 @@ module.exports = function(grunt) {
           spawn: false,
         },
       },
+    },
+
+    jshint: {
+      options : {
+        jshintrc : ".jshintrc"
+      },
+      files: {
+        src: ["utils.js"]
+      }
     }
 
   });
 
   // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
   grunt.registerTask('default', ['browserify', 'uglify', 'watch']);
+  grunt.registerTask('strict-build', ['jshint','browserify', 'uglify', 'watch']);
 
 };
