@@ -1,6 +1,6 @@
 utils
 =====
-*****work in progres*****
+** **work in progress** **
 
 A tiny library of commonly used helper functions in javascript.
 
@@ -15,7 +15,6 @@ Version
 
 Functions
 ----
-________
 - isObject(myObject)
 - isEqual(object1 , object2)
 - isFunction(myFunc)
@@ -24,7 +23,7 @@ ________
 - isString(myString)
 - isEmpty(myObject)
 
-> *****more to come*****
+** **more to be updated** **
 
 Usage
 --------------
