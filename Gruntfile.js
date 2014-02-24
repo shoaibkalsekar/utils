@@ -3,8 +3,14 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    
+
     uglify: {
+      options: {
+        mangle: true,
+        compress: true,
+        report: 'gzip',
+        sourceMap: true
+      },
       build: {
         src: 'utils.js',
         dest: 'public/utils.js'
@@ -18,7 +24,7 @@ module.exports = function(grunt) {
           'public/test/utils-spec.js': ['test/utils-spec.js']
         }
       }
-    },   
+    },
 
     watch: {
       scripts: {
